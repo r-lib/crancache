@@ -11,10 +11,6 @@ update_cache <- function(destdir) {
   bakdir <- backup_files(destdir, files)
   on.exit(try_silently(unlink(bakdir, recursive = TRUE)), add = TRUE)
 
-  ## Check if they are valid zip / tar.gz files, we do not want to
-  ## cache invalid files.
-  files <- Filter(function(x) check_integrity(file.path(bakdir, x)), files)
-
   ## Add them to the cache
   lapply(file.path(bakdir, files), update_cache_file)
 }
@@ -45,7 +41,7 @@ update_cache_file <- function(file) {
 
   versions <- package_versions(dir)
   md5 <- md5sum(file)
-  if (! md5 %in% versions$MD5sum) {
+  if (! md5 %in% versions$MD5sum && check_integrity(file)) {
     message("Adding ", sQuote(basename(file)), " to the cache")
     file.copy(file, dir)
     add_PACKAGES(basename(file), dir = dir)
