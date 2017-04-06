@@ -17,4 +17,6 @@ Imports:
     rappdirs
 Suggests: 
     testthat
+Remotes:
+    r-hub/cranlike
 Encoding: UTF-8
