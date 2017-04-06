@@ -31,7 +31,15 @@ install.packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  myrepos <- c(get_cached_repos(type), repos)
+  ## Check if repos should be NULL, i.e. we are installing a single
+  ## package file
+  if (length(pkgs) == 1L && missing(repos) && missing(contriburl) &&
+      grepl("\\.zip$|\\.tgz$|\\.tar\\.gz$", pkgs)) {
+    repos <- NULL
+  }
+
+  ## If repos should be NULL, then we keep it NULL
+  myrepos <- if (is.null(repos)) repos else c(get_cached_repos(type), repos)
 
   tryCatch(
     utils::install.packages(
