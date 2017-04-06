@@ -11,6 +11,10 @@ LazyData: true
 URL: https://github.com/r-hub/crancache
 BugReports: https://github.com/r-hub/crancache/issues
 RoxygenNote: 6.0.1
+Imports:
+    cranlike,
+    httr,
+    rappdirs
 Suggests: 
     testthat
 Encoding: UTF-8
