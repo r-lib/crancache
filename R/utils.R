@@ -34,3 +34,10 @@ try_silently <- function(expr) {
 unique_with_names <- function(x) {
   x[! duplicated(x)]
 }
+
+warn_for_ignored_arg <- function(x) {
+  call <- match.call(sys.function(sys.parent(1)), sys.call(-1))
+  if (x %in% names(call)) {
+    warning(sQuote(x), " argument is ignored", call. = FALSE)
+  }
+}
