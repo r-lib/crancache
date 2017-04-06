@@ -41,3 +41,7 @@ warn_for_ignored_arg <- function(x) {
     warning(sQuote(x), " argument is ignored", call. = FALSE)
   }
 }
+
+pkg_name_from_file <- function(x) {
+  sub("^([a-zA-Z0-9\\.]+)_.*$", "\\1", basename(x))
+}

@@ -15,7 +15,7 @@ check_integrity <- function(file) {
 check_integrity_zip <- function(file) {
   if (file.info(file)$size == 0) return(FALSE)
   tryCatch(
-    { unzip(file, list = TRUE); TRUE },
+    is_package_file_list(file, unzip(file, list = TRUE)),
     error = function(e) FALSE,
     warning = function(e) FALSE
   )
@@ -28,7 +28,19 @@ check_integrity_targz <- function(file) {
   con <- gzfile(file, open = "rb")
   on.exit(close(con), add = TRUE)
   tryCatch(
-    { untar(con, list = TRUE); TRUE },
+    is_package_file_list(file, untar(con, list = TRUE)),
     error = function(e) FALSE
   )
+}
+
+is_package_file_list <- function(file, list) {
+  pkgname <- pkg_name_from_file(file)
+
+  ## A single directory, named after the package
+  if (any(! grepl(paste0("^", pkgname, "\\b"), list))) return(FALSE)
+
+  ## DESCRIPTION file
+  if (! paste0(pkgname, "/DESCRIPTION") %in% list) return(FALSE)
+
+  return(TRUE)
 }
