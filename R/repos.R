@@ -9,6 +9,8 @@ interpret_type <- function(type) {
   }
 }
 
+#' @importFrom cranlike create_empty_PACKAGES
+
 get_cached_repos <- function(type) {
 
   ## Make sure that we have the appropriate cache directories

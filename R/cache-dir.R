@@ -25,6 +25,8 @@ get_cache_url <- function() {
   ))
 }
 
+#' @importFrom utils contrib.url
+
 get_package_dirs <- function(root, type) {
   paste0(
     root,
