@@ -30,3 +30,7 @@ write_dcf <- function(x, file) {
 try_silently <- function(expr) {
   try(expr, silent = TRUE)
 }
+
+unique_with_names <- function(x) {
+  x[! duplicated(x)]
+}

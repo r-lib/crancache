@@ -19,22 +19,20 @@ update_cache <- function(destdir) {
 #' @importFrom tools md5sum
 
 update_cache_file <- function(file) {
-  cache_dir <- get_cache_dir()
-  platform_dir <- get_package_dirs(cache_dir, .Platform$pkgType)
-  source_dir <- get_package_dirs(cache_dir, "source")
+  dirs <- get_cache_dirs()
 
   dir <- if (grepl("\\.zip$", file)) {
     if (.Platform$pkgType == "win.binary") {
-      platform_dir
+      dirs[["platform"]]
     }
 
   } else if (grepl("\\.tgz$", file)) {
     if (grepl("^mac.binary", .Platform$pkgType)) {
-      platform_dir
+      dirs[["platform"]]
     }
 
   } else if (grepl("\\.tar\\.gz$", file)) {
-    source_dir
+    dirs[["source"]]
   }
 
   if (is.null(dir)) return()

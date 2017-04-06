@@ -8,6 +8,14 @@ get_cache_dir <- function() {
   )
 }
 
+get_cache_dirs <- function() {
+  cache_dir <- get_cache_dir()
+  c(
+    platform = get_package_dirs(cache_dir, .Platform$pkgType),
+    source = get_package_dirs(cache_dir, "source")
+  )
+}
+
 #' @importFrom utils URLencode
 
 get_cache_url <- function() {
