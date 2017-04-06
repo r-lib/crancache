@@ -3,6 +3,7 @@
 export(crancache_clean)
 export(crancache_list)
 export(crancache_remove)
+export(download.packages)
 export(install.packages)
 importFrom(cranlike,add_PACKAGES)
 importFrom(cranlike,create_empty_PACKAGES)

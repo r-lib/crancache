@@ -107,3 +107,6 @@ install.packages(pkgs, lib, repos = getOption("repos"),
 \description{
 Install Packages from Repositories or Local Files, with Caching
 }
+\seealso{
+Other caching package manager functions: \code{\link{download.packages}}
+}
