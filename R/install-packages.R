@@ -17,6 +17,7 @@
 #'    available packages is presented where possible in an interactive \R
 #'    session.
 #' @inheritParams utils::install.packages
+#' @param ... additional arguments are passed to [base::install.packages()].
 #'
 #' @export
 #' @family caching package manager functions

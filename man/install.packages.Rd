@@ -10,20 +10,20 @@ install.packages(pkgs, lib, repos = getOption("repos"),
 }
 \arguments{
 \item{pkgs}{character vector of the names of packages whose
-   current versions should be downloaded from the repositories.
+current versions should be downloaded from the repositories.
 
-   If \code{repos = NULL}, a character vector of file paths.
-   These can be source directories or archives
-   or binary package archive files (as created by \command{R CMD build
+If \code{repos = NULL}, a character vector of file paths.
+These can be source directories or archives
+or binary package archive files (as created by \command{R CMD build
      --binary}).  (\code{http://} and \code{file://} URLs are also
-   accepted and the files will be downloaded and installed from local
-   copies.)  On a CRAN build of \R for macOS these can be \file{.tgz}
-   files containing binary package archives.
-   Tilde-expansion will be done on file paths.
+accepted and the files will be downloaded and installed from local
+copies.)  On a CRAN build of \R for macOS these can be \file{.tgz}
+files containing binary package archives.
+Tilde-expansion will be done on file paths.
 
-   If this is missing or a zero-length character vector, a listbox of
-   available packages is presented where possible in an interactive \R
-   session.}
+If this is missing or a zero-length character vector, a listbox of
+available packages is presented where possible in an interactive \R
+session.}
 
 \item{lib}{
     character vector giving the library directories where to
@@ -98,11 +98,7 @@ install.packages(pkgs, lib, repos = getOption("repos"),
     builds: see the section on \sQuote{Binary packages} for those.
   }
 
-\item{...}{
-    Arguments to be passed to \code{\link{download.file}} or to the
-    functions for binary installs on macOS and Windows (which accept
-    an argument \code{"lock"}: see the section on \sQuote{Locking}).
-  }
+\item{...}{additional arguments are passed to \code{\link[base:install.packages]{base::install.packages()}}.}
 }
 \description{
 Install Packages from Repositories or Local Files, with Caching
