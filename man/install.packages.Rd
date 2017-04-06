@@ -98,7 +98,8 @@ session.}
     builds: see the section on \sQuote{Binary packages} for those.
   }
 
-\item{...}{additional arguments are passed to \code{\link[base:install.packages]{base::install.packages()}}.}
+\item{...}{additional arguments are passed to
+\code{\link[utils:install.packages]{utils::install.packages()}}.}
 }
 \description{
 Install Packages from Repositories or Local Files, with Caching

@@ -1,6 +1,8 @@
 
 #' Download Package from CRAN-like Repositories, with Caching
 #'
+#' @param ... additional arguments are passed to
+#'   [utils::download.packages()].
 #' @inheritParams utils::download.packages
 #'
 #' @export

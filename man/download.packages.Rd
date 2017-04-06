@@ -47,10 +47,8 @@ download.packages(pkgs, destdir, available = NULL,
     \code{\link{install.packages}}.
   }
 
-\item{...}{
-    additional arguments to be passed to
-    \code{\link{download.file}}.
-  }
+\item{...}{additional arguments are passed to
+\code{\link[utils:download.packages]{utils::download.packages()}}.}
 }
 \description{
 Download Package from CRAN-like Repositories, with Caching

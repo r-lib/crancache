@@ -16,8 +16,9 @@
 #'    If this is missing or a zero-length character vector, a listbox of
 #'    available packages is presented where possible in an interactive \R
 #'    session.
+#' @param ... additional arguments are passed to
+#'    [utils::install.packages()].
 #' @inheritParams utils::install.packages
-#' @param ... additional arguments are passed to [base::install.packages()].
 #'
 #' @export
 #' @family caching package manager functions
