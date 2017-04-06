@@ -8,6 +8,7 @@
 #'
 #' @export
 #' @importFrom cranlike create_empty_PACKAGES
+#' @importFrom utils contrib.url
 
 install.packages <- function(
   pkgs, lib, repos = getOption("repos"),

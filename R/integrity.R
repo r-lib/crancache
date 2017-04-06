@@ -10,6 +10,8 @@ check_integrity <- function(file) {
   }
 }
 
+#' @importFrom utils unzip
+
 check_integrity_zip <- function(file) {
   if (file.info(file)$size == 0) return(FALSE)
   tryCatch(
@@ -18,6 +20,8 @@ check_integrity_zip <- function(file) {
     warning = function(e) FALSE
   )
 }
+
+#' @importFrom utils untar
 
 check_integrity_targz <- function(file) {
   if (file.info(file)$size == 0) return(FALSE)

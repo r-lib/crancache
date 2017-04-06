@@ -14,7 +14,9 @@ RoxygenNote: 6.0.1
 Imports:
     cranlike,
     httr,
-    rappdirs
+    rappdirs,
+    tools,
+    utils
 Suggests: 
     testthat
 Remotes:

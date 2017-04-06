@@ -8,6 +8,8 @@ get_cache_dir <- function() {
   )
 }
 
+#' @importFrom utils URLencode
+
 get_cache_url <- function() {
   URLencode(paste0(
     "file://",
