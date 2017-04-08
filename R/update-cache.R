@@ -1,5 +1,9 @@
 
 update_cache <- function(destdir) {
+  tryCatch(update_cache_safe(destdir), error = function(e) NULL)
+}
+
+update_cache_safe <- function(destdir) {
   ## Find the downloaded packages
   destdir <- destdir %||% file.path(tempdir(), "downloaded_packages")
 
