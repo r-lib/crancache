@@ -1,4 +1,8 @@
 
+is_crancache_active <- function() {
+  Sys.getenv("CRANCACHE_DISABLE", "") == ""
+}
+
 #' @importFrom rappdirs user_cache_dir
 
 get_cache_dir <- function() {

@@ -15,6 +15,12 @@ update.packages <- function(
   ask = TRUE, available = NULL, oldPkgs = NULL, ...,
   checkBuilt = FALSE, type = getOption("pkgType")) {
 
+  if (! is_crancache_active()) {
+    call <- match.call()
+    call[[1]] <- quote(utils::update.packages)
+    return(eval(call, env = parent.frame()))
+  }
+
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 

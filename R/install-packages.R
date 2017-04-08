@@ -28,6 +28,12 @@ install.packages <- function(
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...) {
 
+  if (! is_crancache_active()) {
+    call <- match.call()
+    call[[1]] <- quote(utils::install.packages)
+    return(eval(call, env = parent.frame()))
+  }
+
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
