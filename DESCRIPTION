@@ -17,7 +17,8 @@ Imports:
     rappdirs,
     tools,
     utils
-Suggests: 
+Suggests:
+    covr,
     testthat
 Remotes:
     r-hub/cranlike

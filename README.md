@@ -7,6 +7,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-hub/crancache?svg=true)](https://ci.appveyor.com/project/gaborcsardi/crancache)
 [![](http://www.r-pkg.org/badges/version/crancache)](http://www.r-pkg.org/pkg/crancache)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/crancache)](http://www.r-pkg.org/pkg/crancache)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-hub/crancache/master.svg)](https://codecov.io/github/r-hub/crancache?branch=master)
 
 Provides a wrapper for 'install.packages()', that transparently caches
 downloaded packages in a local CRAN-like repository.
