@@ -31,7 +31,7 @@ install.packages <- function(
   if (! is_crancache_active()) {
     call <- match.call()
     call[[1]] <- quote(utils::install.packages)
-    return(eval(call, env = parent.frame()))
+    return(eval(call, envir = parent.frame()))
   }
 
   warn_for_ignored_arg("contriburl")
