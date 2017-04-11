@@ -1,15 +1,18 @@
 
 #' Update Outdated Packages, with Caching
 #'
+#' @param oldPkgs if specified as non-NULL, `update_packages()`
+#'  only considers these packages for updating. This may be a character
+#'  vector of package names or a matrix as returned by \code{old.packages}.
 #' @param ... additional arguments are passed to
 #'   [utils::update.packages()].
 #' @inheritParams utils::update.packages
 #' @inheritParams utils::install.packages
 #'
-#' @export update.packages
+#' @export
 #' @family caching package manager functions
 
-update.packages <- function(
+update_packages <- function(
   lib.loc = NULL, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, instlib = NULL,
   ask = TRUE, available = NULL, oldPkgs = NULL, ...,

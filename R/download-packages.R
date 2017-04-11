@@ -9,7 +9,7 @@
 #' @family caching package manager functions
 #' @importFrom utils contrib.url
 
-download.packages <- function(
+download_packages <- function(
   pkgs, destdir, available = NULL, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method,
   type = getOption("pkgType"), ...) {

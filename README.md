@@ -23,8 +23,8 @@ source("https://install-github.me/r-hub/crancache")
 library(crancache)
 ```
 
-Just load the package and call the `install.packages()`,
-`update.packages()` or `download_packages()` functions. `crancache`
+Just load the package and call the `install_packages()`,
+`update_packages()` or `download_packages()` functions. `crancache`
 automatically sets up the cache in the user's operating system dependent
 cache directory, and uses it whenever it is possible. In particular:
 
@@ -49,7 +49,7 @@ After installation, they will be added to the cache.
 ```r
 dir.create(lib <- tempfile())
 .libPaths(lib)
-system.time(install.packages("tidyverse"))
+system.time(install_packages("tidyverse"))
 ```
 
 ```
@@ -180,17 +180,13 @@ crancache_list()
 #> 42         xml2    1.1.1 3155d4639a0bad5a78afaa286591c1b1
 ```
 
-The next time these package files are needed, `install.packages()` will
+The next time these package files are needed, `install_packages()` will
 use the cached versions:
 
 ```
 dir.create(lib <- tempfile())
 .libPaths(lib)
-system.time(install.packages("tidyverse"))
-```
-
-```
-system.time(install.packages("tidyverse"))
+system.time(install_packages("tidyverse"))
 ```
 
 ```

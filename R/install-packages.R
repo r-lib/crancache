@@ -23,7 +23,7 @@
 #' @export
 #' @family caching package manager functions
 
-install.packages <- function(
+install_packages <- function(
   pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...) {
