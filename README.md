@@ -29,7 +29,7 @@ Just load the package and call the `install_packages()`,
 automatically sets up the cache in the user's operating system dependent
 cache directory, and uses it whenever it is possible. In particular:
 
-* If the requrest version of a package (usually the newest version) is
+* If the requested version of a package (usually the newest version) is
   available from the cache, then the cache is used, without downloading it
   (again). 
 * If a package is not in the cache, or the version in the cache is
