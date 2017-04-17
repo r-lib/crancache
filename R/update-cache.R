@@ -9,14 +9,10 @@ update_cache_safe <- function(destdir) {
 
   ## Get the downloaded package files
   files <- list.files(destdir, pattern = "\\.zip$|\\.tgz$|\\.tar\\.gz$")
-
-  ## Backup the files, so that they do not change by other
-  ## install processes that might be running
-  bakdir <- backup_files(destdir, files)
-  on.exit(try_silently(unlink(bakdir, recursive = TRUE)), add = TRUE)
+  ffiles <- file.path(destdir, files)
 
   ## Add them to the cache
-  lapply(file.path(bakdir, files), update_cache_file)
+  lapply(ffiles, function(f) try_silently(update_cache_file(f)))
 }
 
 #' @importFrom cranlike add_PACKAGES package_versions
@@ -41,17 +37,24 @@ update_cache_file <- function(file) {
 
   if (is.null(dir)) return()
 
-  versions <- package_versions(dir)
+  ## If already exists, then quit
   md5 <- md5sum(file)
-  if (! md5 %in% versions$MD5sum && check_integrity(file)) {
-    message("Adding ", sQuote(basename(file)), " to the cache")
-    file.copy(file, dir)
-    add_PACKAGES(basename(file), dir = dir)
-  }
-}
+  versions <- package_versions(dir)
+  if (md5 %in% versions$MD5sum) return()
 
-backup_files <- function(dir, files) {
-  dir.create(bakdir <- tempfile())
-  file.copy(file.path(dir, files), bakdir)
-  bakdir
+  ## If not a proper file, then quit
+  if (! check_integrity(file)) return ()
+
+  file.copy(file, dir)
+
+  ## Final check, maybe the file has changed since we looked at it
+  tfile <- file.path(dir, basename(file))
+  if (md5sum(tfile) != md5) {
+    unlink(tfile, recursive = TRUE)
+    return()
+  }
+
+  ## All is good
+  message("Adding ", sQuote(basename(file)), " to the cache")
+  add_PACKAGES(basename(file), dir = dir)
 }
