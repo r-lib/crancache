@@ -47,6 +47,12 @@ install_packages <- function(
   ## If repos should be NULL, then we keep it NULL
   myrepos <- if (is.null(repos)) repos else c(get_cached_repos(type), repos)
 
+  warnings <- list()
+  errors <- list()
+  timestamp <- Sys.time()
+
+  args <- match.call(expand.dots = FALSE)$...
+
   tryCatch(
     utils::install.packages(
       pkgs = pkgs,
@@ -59,7 +65,10 @@ install_packages <- function(
       dependencies = dependencies,
       type = type,
       ...),
-    error = function(e) stop(e),
-    finally = update_cache(destdir)
+    warning = function(w) { warnings <- append(warnings, w); warning(w) },
+    error = function(e) { errors <- append(errors, e); stop(e) },
+    finally = update_cache(
+      destdir, binaries = TRUE, warnings, errors, lib, timestamp, args
+    )
   )
 }

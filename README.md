@@ -206,7 +206,7 @@ system.time(install_packages("tidyverse"))
 #>    user  system elapsed
 #>   2.083   2.899   7.818
 ```
-  
+
 ## License
 
 MIT © Gábor Csárdi

@@ -10,16 +10,21 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/r-hub/crancache
 BugReports: https://github.com/r-hub/crancache/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports:
+    callr,
     cranlike,
+    parsedate,
     rappdirs,
     tools,
-    utils
+    utils,
+    withr
 Suggests:
     covr,
-    testthat
+    testthat,
+    zip
 Remotes:
-    r-hub/cranlike
+    r-hub/cranlike,
+    gaborcsardi/zip
 Encoding: UTF-8

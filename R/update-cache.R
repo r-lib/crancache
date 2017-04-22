@@ -1,9 +1,34 @@
 
-update_cache <- function(destdir) {
-  tryCatch(update_cache_safe(destdir), error = function(e) NULL)
+#' Update the cache after a download/install/update
+#'
+#' @param destdir Directory of the downloaded packages. See
+#'   [utils::install.packages()].
+#' @param binaries Whether to try to add binary packages to the cache.
+#' @param warnings List of warnings we got from [utils::install.packages()].
+#' @param errors List of errors we got from [utils::install.packages()].
+#' @param lib The `lib` argument to `install_packages`. Where the
+#'   packages are installed. If missing or `NULL`, then first element
+#'   of [base::.libPaths()] is used.
+#' @param timestamp A timestamp, when the installation started.
+#'   We use this to decide if a package was installed in the current
+#'   process.
+#' @param args additional arguments to `install_packages` (or the other
+#'   functions), they have to be matched.
+#'
+#' @keywords internal
+
+update_cache <- function(destdir, binaries = FALSE, warnings = list(),
+                         errors = list(), lib, timestamp, args) {
+  tryCatch(
+    update_cache_safe(destdir, binaries, warnings, errors, lib,
+                      timestamp, args),
+    error = function(e) stop(e)
+  )
 }
 
-update_cache_safe <- function(destdir) {
+update_cache_safe <- function(destdir, binaries, warnings, errors, lib,
+                              timestamp, args) {
+
   ## Find the downloaded packages
   destdir <- destdir %||% file.path(tempdir(), "downloaded_packages")
 
@@ -13,6 +38,10 @@ update_cache_safe <- function(destdir) {
 
   ## Add them to the cache
   lapply(ffiles, function(f) try_silently(update_cache_file(f)))
+
+  if (binaries) {
+    update_cache_binaries(destdir, warnings, errors, lib, timestamp, args)
+  }
 }
 
 #' @importFrom cranlike add_PACKAGES package_versions
