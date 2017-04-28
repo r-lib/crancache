@@ -24,7 +24,4 @@ Suggests:
     covr,
     testthat,
     zip
-Remotes:
-    r-hub/cranlike,
-    gaborcsardi/zip
 Encoding: UTF-8
