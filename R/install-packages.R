@@ -18,6 +18,9 @@
 #'    session.
 #' @param ... additional arguments are passed to
 #'    [utils::install.packages()].
+#' @param use_cache Whether to set up the cache *before* the installation.
+#' @param update_cache Whether to update the cache *after* the
+#'    installation.
 #' @inheritParams utils::install.packages
 #'
 #' @export
@@ -26,7 +29,8 @@
 install_packages <- function(
   pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
-  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...) {
+  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
+  use_cache = TRUE, update_cache = TRUE) {
 
   if (! is_crancache_active()) {
     call <- match.call()
@@ -44,8 +48,12 @@ install_packages <- function(
     repos <- NULL
   }
 
-  ## If repos should be NULL, then we keep it NULL
-  myrepos <- if (is.null(repos)) repos else c(get_cached_repos(type), repos)
+  myrepos <- if (use_cache) {
+    ## If repos should be NULL, then we keep it NULL
+    if (is.null(repos)) repos else c(get_cached_repos(type), repos)
+  } else {
+    repos
+  }
 
   warnings <- list()
   errors <- list()
@@ -67,7 +75,7 @@ install_packages <- function(
       ...),
     warning = function(w) { warnings <- append(warnings, w); warning(w) },
     error = function(e) { errors <- append(errors, e); stop(e) },
-    finally = update_cache(
+    finally = if (update_cache) update_cache(
       destdir, binaries = TRUE, warnings, errors, lib, timestamp, args
     )
   )
