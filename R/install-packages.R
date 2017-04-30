@@ -21,6 +21,8 @@
 #' @param use_cache Whether to set up the cache *before* the installation.
 #' @param update_cache Whether to update the cache *after* the
 #'    installation.
+#' @param add_built_binaries Whether to add freshly built binary
+#'    packages to the cache.
 #' @inheritParams utils::install.packages
 #'
 #' @export
@@ -30,7 +32,7 @@ install_packages <- function(
   pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = TRUE, update_cache = TRUE) {
+  use_cache = NULL, update_cache = NULL, add_built_binaries = NULL) {
 
   if (! is_crancache_active()) {
     call <- match.call()
@@ -76,7 +78,8 @@ install_packages <- function(
     warning = function(w) { warnings <- append(warnings, w); warning(w) },
     error = function(e) { errors <- append(errors, e); stop(e) },
     finally = if (update_cache) update_cache(
-      destdir, binaries = TRUE, warnings, errors, lib, timestamp, args
+      destdir, binaries = add_built_binaries, warnings, errors, lib,
+      timestamp, args
     )
   )
 }

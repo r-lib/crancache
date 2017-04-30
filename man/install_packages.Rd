@@ -7,7 +7,7 @@
 install_packages(pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = TRUE, update_cache = TRUE)
+  use_cache = TRUE, update_cache = TRUE, add_built_binaries = FALSE)
 }
 \arguments{
 \item{pkgs}{character vector of the names of packages whose
@@ -106,6 +106,9 @@ session.}
 
 \item{update_cache}{Whether to update the cache \emph{after} the
 installation.}
+
+\item{add_built_binaries}{Whether to add freshly built binary
+packages to the cache.}
 }
 \description{
 Install Packages from Repositories or Local Files, with Caching
