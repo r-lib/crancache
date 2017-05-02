@@ -32,7 +32,7 @@ install_packages <- function(
   pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = NULL, update_cache = NULL, add_built_binaries = NULL) {
+  use_cache = TRUE, update_cache = TRUE, add_built_binaries = TRUE) {
 
   if (! is_crancache_active()) {
     call <- match.call()

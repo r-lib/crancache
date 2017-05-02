@@ -7,7 +7,7 @@
 install_packages(pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
   destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = TRUE, update_cache = TRUE, add_built_binaries = FALSE)
+  use_cache = TRUE, update_cache = TRUE, add_built_binaries = TRUE)
 }
 \arguments{
 \item{pkgs}{character vector of the names of packages whose
