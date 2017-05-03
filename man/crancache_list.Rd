@@ -7,13 +7,8 @@
 crancache_list()
 }
 \value{
-A list of data frames. There is one data frame for each package
-directory. I.e. on platforms where CRAN supports binary packages,
-there is one directory for binaries, and one for source packages.
-The name of the list element is the absolute path to the package
-directory.
-
-Each data frame has three columns: \code{Package}, \code{Version} and \code{MD5sum}.
+A data frames. Each data frame has four columns:
+\code{Package}, \code{Repository}, \code{Version} and \code{MD5sum}.
 }
 \description{
 List packages in the cache

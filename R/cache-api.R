@@ -1,13 +1,8 @@
 
 #' List packages in the cache
 #'
-#' @return A list of data frames. There is one data frame for each package
-#'   directory. I.e. on platforms where CRAN supports binary packages,
-#'   there is one directory for binaries, and one for source packages.
-#'   The name of the list element is the absolute path to the package
-#'   directory.
-#'
-#'   Each data frame has three columns: `Package`, `Version` and `MD5sum`.
+#' @return A data frames. Each data frame has four columns:
+#' `Package`, `Repository`, `Version` and `MD5sum`.
 #'
 #' @family cache management functions
 #' @export
@@ -16,10 +11,16 @@
 crancache_list <- function() {
   create_cache_if_needed()
   cache_dirs <- unique_with_names(get_cache_package_dirs())
-  structure(
-    lapply(cache_dirs, package_versions),
-    names = cache_dirs
+  lists <- lapply(cache_dirs, package_versions)
+  res <- do.call(rbind, lists)
+  res <- cbind(
+    Package = res$Package,
+    Repository = rep(names(cache_dirs), vapply(lists, nrow, integer(1))),
+    res[, setdiff(colnames(res), "Package")]
   )
+  res <- res[order(res$Package), ]
+  rownames(res) <- NULL
+  res
 }
 
 #' Remove the cache completely
