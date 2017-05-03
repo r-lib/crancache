@@ -14,7 +14,8 @@
 #' @importFrom cranlike package_versions
 
 crancache_list <- function() {
-  cache_dirs <- unique_with_names(get_cache_dirs())
+  create_cache_if_needed()
+  cache_dirs <- unique_with_names(get_cache_package_dirs())
   structure(
     lapply(cache_dirs, package_versions),
     names = cache_dirs
@@ -30,6 +31,7 @@ crancache_list <- function() {
 #' @export
 
 crancache_clean <- function(force = FALSE) {
+  create_cache_if_needed()
   cache_dir <- get_cache_dir()
   unlink(cache_dir, recursive = TRUE, force = force)
   invisible()
@@ -49,7 +51,8 @@ crancache_clean <- function(force = FALSE) {
 #' @importFrom cranlike remove_PACKAGES
 
 crancache_remove <- function(pkgs) {
-  cache_dirs <- get_cache_dirs()
+  create_cache_if_needed()
+  cache_dirs <- get_cache_package_dirs()
   for (dir in cache_dirs) {
     files <- unlist(lapply(pkgs, list.files, path = dir))
     for (file in files) {

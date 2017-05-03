@@ -19,11 +19,8 @@
 
 update_cache <- function(destdir, binaries = FALSE, warnings = list(),
                          errors = list(), lib, timestamp, args) {
-  tryCatch(
     update_cache_safe(destdir, binaries, warnings, errors, lib,
-                      timestamp, args),
-    error = function(e) stop(e)
-  )
+                      timestamp, args)
 }
 
 update_cache_safe <- function(destdir, binaries, warnings, errors, lib,
@@ -48,22 +45,7 @@ update_cache_safe <- function(destdir, binaries, warnings, errors, lib,
 #' @importFrom tools md5sum
 
 update_cache_file <- function(file) {
-  dirs <- get_cache_dirs()
-
-  dir <- if (grepl("\\.zip$", file)) {
-    if (.Platform$pkgType == "win.binary") {
-      dirs[["platform"]]
-    }
-
-  } else if (grepl("\\.tgz$", file)) {
-    if (grepl("^mac.binary", .Platform$pkgType)) {
-      dirs[["platform"]]
-    }
-
-  } else if (grepl("\\.tar\\.gz$", file)) {
-    dirs[["source"]]
-  }
-
+  dir <- get_cache_dir_for_file(file)
   if (is.null(dir)) return()
 
   ## If already exists, then quit
@@ -74,16 +56,44 @@ update_cache_file <- function(file) {
   ## If not a proper file, then quit
   if (! check_integrity(file)) return ()
 
-  file.copy(file, dir)
+  dir.create(tmp <- tempfile())
+  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
+  file.copy(file, tmp)
 
   ## Final check, maybe the file has changed since we looked at it
-  tfile <- file.path(dir, basename(file))
-  if (md5sum(tfile) != md5) {
-    unlink(tfile, recursive = TRUE)
-    return()
-  }
+  tfile <- file.path(tmp, basename(file))
+  if (md5sum(tfile) != md5) return()
 
   ## All is good
   message("Adding ", sQuote(basename(file)), " to the cache")
+  file.copy(tfile, dir)
   add_PACKAGES(basename(file), dir = dir)
+}
+
+#' @importFrom desc desc_get
+
+get_cache_dir_for_file <- function(file) {
+  repository <- desc_get("Repository", file)[[1]]
+
+  prefix <- if (identical(repository, "CRAN")) {
+    "cran/"
+  } else {
+    "other/"
+  }
+
+  which <- if (grepl("\\.zip$", file)) {
+    if (.Platform$pkgType == "win.binary") {
+      "platform"
+    }
+
+  } else if (grepl("\\.tgz$", file)) {
+    if (grepl("^mac.binary", .Platform$pkgType)) {
+      "platform"
+    }
+
+  } else if (grepl("\\.tar\\.gz$", file)) {
+    "source"
+  }
+
+  get_cache_package_dirs()[[paste0(prefix, which)]]
 }

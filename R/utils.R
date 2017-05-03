@@ -45,3 +45,7 @@ warn_for_ignored_arg <- function(x) {
 pkg_name_from_file <- function(x) {
   sub("^([a-zA-Z0-9\\.]+)_.*$", "\\1", basename(x))
 }
+
+isFALSE <- function(x) {
+  identical(x, FALSE)
+}

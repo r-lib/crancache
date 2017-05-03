@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 Imports:
     callr,
     cranlike,
+    desc (>= 1.1.0),
     parsedate,
     rappdirs,
     tools,

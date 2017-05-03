@@ -19,6 +19,9 @@
 #' @param ... additional arguments are passed to
 #'    [utils::install.packages()].
 #' @param use_cache Whether to set up the cache *before* the installation.
+#'    If `NULL`, or `FALSE`, then no cache will be used. If `TRUE`, then
+#'    all caches are used. If a character vector of cache names, then
+#'    the selected caches are used only.
 #' @param update_cache Whether to update the cache *after* the
 #'    installation.
 #' @param add_built_binaries Whether to add freshly built binary
@@ -50,11 +53,19 @@ install_packages <- function(
     repos <- NULL
   }
 
-  myrepos <- if (use_cache) {
-    ## If repos should be NULL, then we keep it NULL
-    if (is.null(repos)) repos else c(get_cached_repos(type), repos)
+  crancache_repos <- get_cached_repos(type)
+  if (isTRUE(use_cache)) {
+    use_cache <- rep(TRUE, length(crancache_repos))
+  } else if (isFALSE(use_cache)) {
+    use_cache <- NULL
   } else {
-    repos
+    use_cache <- intersect(names(crancache_repos), use_cache)
+  }
+
+  myrepos <- if (is.null(repos)) {
+    NULL
+  } else {
+    c(crancache_repos[use_cache], repos)
   }
 
   warnings <- list()

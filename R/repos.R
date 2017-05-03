@@ -9,15 +9,16 @@ interpret_type <- function(type) {
   }
 }
 
+get_cached_repos <- function(type) {
+  create_cache_if_needed(type)
+  get_cache_urls()
+}
+
 #' @importFrom cranlike create_empty_PACKAGES
 
-get_cached_repos <- function(type) {
-
-  ## Make sure that we have the appropriate cache directories
-  cache_dir <- get_cache_dir()
-  cache_url <- get_cache_url()
-  package_dirs <- get_package_dirs(cache_dir, interpret_type(type))
-  lapply(package_dirs, create_empty_PACKAGES)
-
-  c(CRANCACHE = cache_url)
+create_cache_if_needed <- function(type = "both") {
+  dirs <- get_cache_package_dirs()
+  for (dir in get_cache_package_dirs()) {
+    create_empty_PACKAGES(dir)
+  }
 }

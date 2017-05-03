@@ -102,7 +102,10 @@ session.}
 \item{...}{additional arguments are passed to
 \code{\link[utils:install.packages]{utils::install.packages()}}.}
 
-\item{use_cache}{Whether to set up the cache \emph{before} the installation.}
+\item{use_cache}{Whether to set up the cache \emph{before} the installation.
+If \code{NULL}, or \code{FALSE}, then no cache will be used. If \code{TRUE}, then
+all caches are used. If a character vector of cache names, then
+the selected caches are used only.}
 
 \item{update_cache}{Whether to update the cache \emph{after} the
 installation.}
