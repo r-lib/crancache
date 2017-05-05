@@ -9,8 +9,9 @@
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/crancache)](http://www.r-pkg.org/pkg/crancache)
 [![Coverage Status](https://img.shields.io/codecov/c/github/r-hub/crancache/master.svg)](https://codecov.io/github/r-hub/crancache?branch=master)
 
-Provides a wrapper for 'install.packages()', that transparently caches
-downloaded packages in a local CRAN-like repository.
+Provides wrappers for `utils::install.packages()`,
+`utils::download.packages()` and `utils::update.packages()` that
+transparently cache downloaded packages in a local CRAN-like repository.
 
 ## Installation
 
@@ -34,6 +35,30 @@ cache directory, and uses it whenever it is possible. In particular:
   (again). 
 * If a package is not in the cache, or the version in the cache is
   outdated, it downloads it and adds it to the cache.
+
+## Configuration
+
+The package can be configured via environment variables. The reason for
+this (as opposed to direct argument to the functions), is that
+`crancache` functions are often used via other packages (e.g. `remotes`),
+and the user does not call them directly. Environment variables still
+allow an easy configuration, especially with the `withr` package.
+See examples below.
+
+Environment variables:
+* `CRANCACHE_DISABLE`: set this to a non-empty value to disable
+  `crancache` completely.
+* `CRANCACHE_REPOS`: set this to a comma separated list of repository
+  names (e.g. `cran` or `other`, see `get_cache_package_dirs()`. If
+  empty string or unset, all local repositories are used.
+* `CRANCACHE_DISABLE_UPDATES`: set this to a non-empty value to
+  disable updates to the cache.
+* `CRANCACHE_DISABLE_BINARY_UPDATES`: set this to a non-empty value
+  to disable adding just-built binary packages to the cache.
+  (Downloaded binaries are still added.)
+
+If non of these environment variables are set (i.e. by default)
+the cache is used and updated and all cache repositories are active.
 
 ## Example session
 

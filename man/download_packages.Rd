@@ -54,6 +54,6 @@ download_packages(pkgs, destdir, available = NULL,
 Download Package from CRAN-like Repositories, with Caching
 }
 \seealso{
-Other caching package manager functions: \code{\link{install_packages}},
+Other caching package management functions: \code{\link{install_packages}},
   \code{\link{update_packages}}
 }

@@ -67,6 +67,6 @@ vector of package names or a matrix as returned by \code{old.packages}.}
 Update Outdated Packages, with Caching
 }
 \seealso{
-Other caching package manager functions: \code{\link{download_packages}},
+Other caching package management functions: \code{\link{download_packages}},
   \code{\link{install_packages}}
 }

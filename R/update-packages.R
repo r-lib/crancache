@@ -10,7 +10,7 @@
 #' @inheritParams utils::install.packages
 #'
 #' @export
-#' @family caching package manager functions
+#' @family caching package management functions
 
 update_packages <- function(
   lib.loc = NULL, repos = getOption("repos"),
@@ -27,7 +27,15 @@ update_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  myrepos <- c(get_cached_repos(type), repos)
+  myrepos <- c(get_crancache_repos(), repos)
+
+  warnings <- list()
+  errors <- list()
+  timestamp <- Sys.time()
+  args <- match.call(expand.dots = FALSE)$...
+
+  update_cache <- should_update_crancache()
+  add_built_binaries <- should_add_binaries()
 
   tryCatch(
     utils::update.packages(
@@ -42,7 +50,11 @@ update_packages <- function(
       ...,
       checkBuilt = checkBuilt,
       type = type),
+    warning = function(w) { warnings <- append(warnings, w); warning(w) },
+    error = function(e) { errors <- append(errors, e); stop(e) },
     error = function(e) stop(e),
-    finally = update_cache(list(...)$destdir)
+    finally = if (update_cache) update_cache(
+      list(...)$destdir, binaries = add_built_binaries, warnings, errors,
+      lib.loc, timestamp, args)
   )
 }

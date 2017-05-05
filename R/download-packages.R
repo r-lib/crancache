@@ -6,7 +6,7 @@
 #' @inheritParams utils::download.packages
 #'
 #' @export
-#' @family caching package manager functions
+#' @family caching package management functions
 #' @importFrom utils contrib.url
 
 download_packages <- function(
@@ -23,7 +23,9 @@ download_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  myrepos <- c(get_cached_repos(type), repos)
+  myrepos <- c(get_crancache_repos(), repos)
+
+  update_cache <- should_update_crancache()
 
   tryCatch(
     utils::download.packages(
@@ -36,6 +38,6 @@ download_packages <- function(
       type = type,
       ...),
     error = function(e) stop(e),
-    finally = update_cache(destdir)
+    finally = if(update_cache) update_cache(destdir)
   )
 }

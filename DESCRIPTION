@@ -3,9 +3,9 @@ Title: Transparent Caching of Packages from CRAN-Like Repositories
 Version: 0.0.0.9000
 Author: Gábor Csárdi
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
-Description: Provides a wrapper for 'install.packages()', that
-    transparently caches downloaded packages in a local CRAN-like
-    repository.
+Description: Wrappers for 'install.packages()', 'download_packages()' and
+    'update.packages', that transparently caches downloaded packages in
+    local CRAN-like repositories.
 License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/r-hub/crancache

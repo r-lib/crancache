@@ -18,24 +18,15 @@
 #'    session.
 #' @param ... additional arguments are passed to
 #'    [utils::install.packages()].
-#' @param use_cache Whether to set up the cache *before* the installation.
-#'    If `NULL`, or `FALSE`, then no cache will be used. If `TRUE`, then
-#'    all caches are used. If a character vector of cache names, then
-#'    the selected caches are used only.
-#' @param update_cache Whether to update the cache *after* the
-#'    installation.
-#' @param add_built_binaries Whether to add freshly built binary
-#'    packages to the cache.
 #' @inheritParams utils::install.packages
 #'
 #' @export
-#' @family caching package manager functions
+#' @family caching package management functions
 
 install_packages <- function(
   pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
-  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = TRUE, update_cache = TRUE, add_built_binaries = TRUE) {
+  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...) {
 
   if (! is_crancache_active()) {
     call <- match.call()
@@ -53,26 +44,19 @@ install_packages <- function(
     repos <- NULL
   }
 
-  crancache_repos <- get_cached_repos(type)
-  if (isTRUE(use_cache)) {
-    use_cache <- rep(TRUE, length(crancache_repos))
-  } else if (isFALSE(use_cache)) {
-    use_cache <- NULL
-  } else {
-    use_cache <- intersect(names(crancache_repos), use_cache)
-  }
-
   myrepos <- if (is.null(repos)) {
     NULL
   } else {
-    c(crancache_repos[use_cache], repos)
+    c(get_crancache_repos(), repos)
   }
 
   warnings <- list()
   errors <- list()
   timestamp <- Sys.time()
-
   args <- match.call(expand.dots = FALSE)$...
+
+  update_cache <- should_update_crancache()
+  add_built_binaries <- should_add_binaries()
 
   tryCatch(
     utils::install.packages(

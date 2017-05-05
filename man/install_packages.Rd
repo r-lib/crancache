@@ -6,8 +6,7 @@
 \usage{
 install_packages(pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
-  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...,
-  use_cache = TRUE, update_cache = TRUE, add_built_binaries = TRUE)
+  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...)
 }
 \arguments{
 \item{pkgs}{character vector of the names of packages whose
@@ -101,22 +100,11 @@ session.}
 
 \item{...}{additional arguments are passed to
 \code{\link[utils:install.packages]{utils::install.packages()}}.}
-
-\item{use_cache}{Whether to set up the cache \emph{before} the installation.
-If \code{NULL}, or \code{FALSE}, then no cache will be used. If \code{TRUE}, then
-all caches are used. If a character vector of cache names, then
-the selected caches are used only.}
-
-\item{update_cache}{Whether to update the cache \emph{after} the
-installation.}
-
-\item{add_built_binaries}{Whether to add freshly built binary
-packages to the cache.}
 }
 \description{
 Install Packages from Repositories or Local Files, with Caching
 }
 \seealso{
-Other caching package manager functions: \code{\link{download_packages}},
+Other caching package management functions: \code{\link{download_packages}},
   \code{\link{update_packages}}
 }
