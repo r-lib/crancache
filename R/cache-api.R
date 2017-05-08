@@ -57,7 +57,9 @@ crancache_remove <- function(pkgs) {
   for (dir in cache_dirs) {
     files <- unlist(lapply(pkgs, list.files, path = dir))
     for (file in files) {
-      message("Removing ", sQuote(file), " from cache")
+      if (!is_quiet()) {
+        message("Removing ", sQuote(file), " from cache")
+      }
       try(remove_PACKAGES(file, dir = dir))
     }
   }

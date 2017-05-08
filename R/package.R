@@ -24,6 +24,8 @@
 #' * `CRANCACHE_DISABLE_BINARY_UPDATES`: set this to a non-empty value
 #'   to disable adding just-built binary packages to the cache.
 #'   (Downloaded binaries are still added.)
+#' * `CRANCACHE_QUIET`: if set to a non-empty value, then `crancache`
+#'   does not print status messages to the screen.
 #'
 #' If non of these environment variables are set (i.e. by default)
 #' the cache is used and updated and all cache repositories are active.

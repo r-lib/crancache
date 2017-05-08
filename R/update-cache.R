@@ -65,7 +65,9 @@ update_cache_file <- function(file) {
   if (md5sum(tfile) != md5) return()
 
   ## All is good
-  message("Adding ", sQuote(basename(file)), " to the cache")
+  if (!is_quiet()) {
+    message("Adding ", sQuote(basename(file)), " to the cache")
+  }
   file.copy(tfile, dir)
   add_PACKAGES(basename(file), dir = dir)
 }

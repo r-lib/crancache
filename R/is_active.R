@@ -37,3 +37,7 @@ should_add_binaries <- function() {
   is_crancache_active() &&
   Sys.getenv("CRANCACHE_DISABLE_BINARY_UPDATES", "") == ""
 }
+
+is_quiet <- function() {
+  Sys.getenv("CRANCACHE_QUIET", "") == ""
+}
