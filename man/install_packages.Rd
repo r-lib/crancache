@@ -105,6 +105,7 @@ session.}
 Install Packages from Repositories or Local Files, with Caching
 }
 \seealso{
-Other caching package management functions: \code{\link{download_packages}},
+Other caching package management functions: \code{\link{available_packages}},
+  \code{\link{download_packages}},
   \code{\link{update_packages}}
 }
