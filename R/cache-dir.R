@@ -21,9 +21,11 @@ get_cache_dir <- function() {
 #' There is a currently two of them:
 #' * The `cran` directory contains binary and/or source packages,
 #'   downloaded and/or installed from CRAN.
+#' * The `bioc` directory contains binary and/or source BioConducor
+#'   packages.
 #' * The `other` directory contains non-CRAN packages.
 #'
-#' Both directories themselves may contain multiple repositories,
+#' Each directory themself may contain multiple repositories,
 #' according to the default layout by [utils::contrib.url()].
 #'
 #' @return A named character vector of package directories.
@@ -32,10 +34,13 @@ get_cache_dir <- function() {
 get_cache_package_dirs <- function() {
   cache_dir <- get_cache_dir()
   cran <- file.path(cache_dir, "cran")
+  bioc <- file.path(cache_dir, "bioc")
   other <- file.path(cache_dir, "other")
   c(
     "cran/platform"  = get_package_dirs(cran, .Platform$pkgType),
     "cran/source"    = get_package_dirs(cran, "source"),
+    "bioc/platform"  = get_package_dirs(bioc, .Platform$pkgType),
+    "bioc/source"    = get_package_dirs(bioc, "source"),
     "other/platform" = get_package_dirs(other, .Platform$pkgType),
     "other/source"   = get_package_dirs(other, "source")
   )
@@ -47,11 +52,11 @@ get_cache_urls <- function() {
   paths <- paste0(
     "file://",
     get_cache_dir(),
-    c("/cran", "/other")
+    c("/cran", "/bioc", "/other")
   )
   structure(
     vapply(paths, URLencode, character(1), USE.NAMES = FALSE),
-    names = c("cran", "other")
+    names = c("cran", "bioc", "other")
   )
 }
 

@@ -39,5 +39,5 @@ should_add_binaries <- function() {
 }
 
 is_quiet <- function() {
-  Sys.getenv("CRANCACHE_QUIET", "") == ""
+  Sys.getenv("CRANCACHE_QUIET", "") != ""
 }

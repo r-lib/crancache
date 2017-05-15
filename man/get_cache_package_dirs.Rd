@@ -15,10 +15,12 @@ There is a currently two of them:
 \itemize{
 \item The \code{cran} directory contains binary and/or source packages,
 downloaded and/or installed from CRAN.
+\item The \code{bioc} directory contains binary and/or source BioConducor
+packages.
 \item The \code{other} directory contains non-CRAN packages.
 }
 }
 \details{
-Both directories themselves may contain multiple repositories,
+Each directory themself may contain multiple repositories,
 according to the default layout by \code{\link[utils:contrib.url]{utils::contrib.url()}}.
 }

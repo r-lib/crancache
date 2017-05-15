@@ -76,9 +76,12 @@ update_cache_file <- function(file) {
 
 get_cache_dir_for_file <- function(file) {
   repository <- desc_get("Repository", file)[[1]]
+  biocViews <- desc_get("biocViews", file)[[1]]
 
   prefix <- if (identical(repository, "CRAN")) {
     "cran/"
+  } else if (!is.na(biocViews)) {
+    "bioc/"
   } else {
     "other/"
   }
