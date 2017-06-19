@@ -27,17 +27,23 @@ download_packages <- function(
 
   update_cache <- should_update_crancache()
 
-  tryCatch(
-    utils::download.packages(
-      pkgs = pkgs,
-      destdir = destdir,
-      available = NULL,                 # overwritten
-      repos = myrepos,
-      ## We don't specify contriburl, on purpose
-      method = method,
-      type = type,
-      ...),
-    error = function(e) stop(e),
-    finally = if(update_cache) update_cache(destdir)
+  ## Do not specify contrib.url here, it does not have our repos
+  available <- update_metadata_for_install(method, type, repos)
+
+  withr::with_options(
+    list(repos = if (is.null(repos)) getOption("repos") else myrepos),
+    tryCatch(
+      utils::download.packages(
+        pkgs = pkgs,
+        destdir = destdir,
+        available = available,
+        repos = myrepos,
+        ## We don't specify contriburl, on purpose
+        method = method,
+        type = type,
+        ...),
+      error = function(e) stop(e),
+      finally = if(update_cache) update_cache(destdir)
+    )
   )
 }

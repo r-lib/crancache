@@ -1,11 +1,11 @@
 
-update_repo_metadata <- function(contriburl, filters) {
-  lapply(contriburl, update_repo_metadata1, filters)
+update_repo_metadata <- function(contriburl) {
+  lapply(contriburl, update_repo_metadata1)
 }
 
 #' @importFrom conf conf
 
-update_repo_metadata1 <- function(url1, filters) {
+update_repo_metadata1 <- function(url1) {
   ## We do not handle local repos, because available.packages
   ## does not cache them, anyway.
   if (substring(url1, 1, 8) == "file:///") return()
@@ -25,51 +25,12 @@ update_repo_metadata1 <- function(url1, filters) {
     paste0("repos_", URLencode(url1, TRUE), ".rds")
   )
 
-  if (length(filters)) {
-    set_filtered_metadata_rds(dest, url1, cf, filters)
-  } else {
-    ## In this case available.packages will do the filtering
-    set_full_metadata_rds(dest, url1, cf)
-  }
-}
-
-set_filtered_metadata_rds <- function(dest, url, cf, filters) {
-  filterstr <- paste(c(r_version(), sort(filters)), collapse = "-")
-  myrds <- file.path(
-    get_metadata_dir(url),
-    paste0("PACKAGES-", filterstr, ".rds")
-  )
-
-  ## Need to create filtered version, take full data and filter it
-  ## We could do this via available.packages, in another R session, maybe.
-  if (! file.exists(myrds)) {
-    fullrds <- file.path(get_metadata_dir(url), "PACKAGES.rds")
-    av <- readRDS(fullrds)
-    for (f in filters) {
-      av <- ("utils" %:::% "available_packages_filters_db")[[ f[1] ]](av)
-    }
-    saveRDS(av, file = myrds)
-  }
-
-  file.copy(myrds, dest)
+  set_full_metadata_rds(dest, url1, cf)
 }
 
 set_full_metadata_rds <- function(dest, url, cf) {
   myrds <- file.path(get_metadata_dir(url), "PACKAGES.rds")
   file.copy(myrds, dest)
-}
-
-get_current_filters <- function(filters) {
-  filters <- filters %||%
-    getOption("available_packages_filters") %||%
-    "utils" %:::% "available_packages_filters_default"
-
-  if (is.list(filters) && isTRUE(filters$add)) {
-    filters$add <- NULL
-    filters <- c("utils" %:::% "available_packages_filters_default", filters)
-  }
-
-  filters
 }
 
 get_metadata_dir <- function(url) {

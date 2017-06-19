@@ -58,23 +58,29 @@ install_packages <- function(
   update_cache <- should_update_crancache()
   add_built_binaries <- should_add_binaries()
 
-  tryCatch(
-    utils::install.packages(
-      pkgs = pkgs,
-      lib = lib,
-      repos = myrepos,
-      ## We don't specify contriburl, on purpose
-      method = method,
-      available = NULL,                   # overwritten
-      destdir = destdir,
-      dependencies = dependencies,
-      type = type,
-      ...),
-    warning = function(w) { warnings <- append(warnings, w); warning(w) },
-    error = function(e) { errors <- append(errors, e); stop(e) },
-    finally = if (update_cache) update_cache(
-      destdir, binaries = add_built_binaries, warnings, errors, lib,
-      timestamp, args
+  ## Do not specify contrib.url here, it does not have our repos
+  available <- update_metadata_for_install(method, type, repos)
+
+  withr::with_options(
+    list(repos = if (is.null(repos)) getOption("repos") else myrepos),
+    tryCatch(
+      utils::install.packages(
+        pkgs = pkgs,
+        lib = lib,
+        repos = myrepos,
+        ## We don't specify contriburl, on purpose
+        method = method,
+        available = available,
+        destdir = destdir,
+        dependencies = dependencies,
+        type = type,
+        ...),
+      warning = function(w) { warnings <- append(warnings, w); warning(w) },
+      error = function(e) { errors <- append(errors, e); stop(e) },
+      finally = if (update_cache) update_cache(
+        destdir, binaries = add_built_binaries, warnings, errors, lib,
+        timestamp, args
+      )
     )
   )
 }
