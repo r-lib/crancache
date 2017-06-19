@@ -16,6 +16,7 @@ Imports:
     callr,
     cranlike,
     desc (>= 1.1.0),
+    httr,
     parsedate,
     rappdirs,
     tools,

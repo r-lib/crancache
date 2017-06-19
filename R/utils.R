@@ -1,30 +1,8 @@
 
 `%||%` <- function(l, r) if (is.null(l)) r else l
 
-url_scheme <- function(url) {
-  if (grepl("^[^:]+:", url)) {
-    sub("(^[^:]+):.*", "\\1", url)
-  } else {
-    ""
-  }
-}
-
-bak_file <- function(path) {
-  paste0(path, ".bak")
-}
-
 make_key <- function(x) {
   gsub("[^a-z0-9]+", "-", tolower(x))
-}
-
-read_dcf <- function(file) {
-  as.list(read.dcf(file)[1,])
-}
-
-write_dcf <- function(x, file) {
-  m <- matrix(unlist(x), nrow = 1)
-  colnames(m) <- names(x)
-  write.dcf(m, file = file)
 }
 
 try_silently <- function(expr) {
@@ -48,4 +26,12 @@ pkg_name_from_file <- function(x) {
 
 isFALSE <- function(x) {
   identical(x, FALSE)
+}
+
+ungzip <- function(path) {
+  if (! grepl("\\.gz$", path)) stop("Not the a gzipped file")
+  target <- sub("\\.gz$", "", path)
+  gzf <- gzfile(path, open = "r")
+  on.exit(close(gzf))
+  writeLines(readLines(gzf), target)
 }

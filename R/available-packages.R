@@ -23,11 +23,13 @@ available_packages <- function(contriburl = contrib.url(repos, type),
   myrepos <- if (is.null(repos)) {
     NULL
   } else {
-    c(get_crancache_repos(), repos)
+    c(get_crancache_repos(), get_current_shadow_repos(repos))
   }
 
   call <- match.call()
   call[[1]] <- quote(utils::available.packages)
   call$repos <- myrepos
   eval(call, envir = parent.frame())
+
+  ## TODO: need to point to the real repos, instead of the shadows
 }
