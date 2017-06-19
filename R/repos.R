@@ -19,6 +19,7 @@ get_cached_repos <- function() {
 create_cache_if_needed <- function() {
   dirs <- get_cache_package_dirs()
   for (dir in get_cache_package_dirs()) {
-    create_empty_PACKAGES(dir)
+    pkgfile <- file.path(dir, "PACKAGES")
+    if (!file.exists(pkgfile)) create_empty_PACKAGES(dir)
   }
 }

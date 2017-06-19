@@ -20,16 +20,23 @@ available_packages <- function(contriburl = contrib.url(repos, type),
                                      repos = repos))
   }
 
-  myrepos <- if (is.null(repos)) {
-    NULL
-  } else {
-    c(get_crancache_repos(), get_current_shadow_repos(repos))
-  }
-
   call <- match.call()
   call[[1]] <- quote(utils::available.packages)
-  call$repos <- myrepos
-  eval(call, envir = parent.frame())
 
-  ## TODO: need to point to the real repos, instead of the shadows
+  if (!is.null(repos)) {
+    call$repos <- c(get_crancache_repos(), repos)
+
+    ## We only handle the builtin filters, others are left to
+    ## available.packages
+    myfilt <- get_current_filters(filters)
+    if (is.character(myfilt) &&
+        all(myfilt %in% ls("utils" %:::% "available_packages_filters_db"))) {
+      update_repo_metadata(contriburl, myfilt)
+      call$filters <- list()
+    } else {
+      update_repo_metadata(contriburl, character())
+    }
+  }
+
+  eval(call, envir = parent.frame())
 }

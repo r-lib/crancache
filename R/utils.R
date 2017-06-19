@@ -1,6 +1,8 @@
 
 `%||%` <- function(l, r) if (is.null(l)) r else l
 
+`%:::%` <- function(pkg, name) getFromNamespace(name, pkg)
+
 make_key <- function(x) {
   gsub("[^a-z0-9]+", "-", tolower(x))
 }
@@ -34,4 +36,8 @@ ungzip <- function(path) {
   gzf <- gzfile(path, open = "r")
   on.exit(close(gzf))
   writeLines(readLines(gzf), target)
+}
+
+r_version <- function() {
+  paste0(R.Version()[c("major", "minor")], collapse = ".")
 }
