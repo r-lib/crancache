@@ -14,10 +14,8 @@ RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports:
     callr,
-    conf,
     cranlike,
     desc (>= 1.1.0),
-    httr,
     parsedate,
     rappdirs,
     tools,
@@ -27,6 +25,4 @@ Suggests:
     covr,
     testthat,
     zip
-Remotes: 
-    gaborcsardi/conf
 Encoding: UTF-8
