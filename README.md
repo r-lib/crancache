@@ -3,11 +3,11 @@
 
 > Transparent Caching of Packages from CRAN-like Repositories
 
-[![Linux Build Status](https://travis-ci.org/r-hub/crancache.svg?branch=master)](https://travis-ci.org/r-hub/crancache)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-hub/crancache?svg=true)](https://ci.appveyor.com/project/gaborcsardi/crancache)
+[![Linux Build Status](https://travis-ci.org/r-lib/crancache.svg?branch=master)](https://travis-ci.org/r-lib/crancache)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/crancache?svg=true)](https://ci.appveyor.com/project/gaborcsardi/crancache)
 [![](http://www.r-pkg.org/badges/version/crancache)](http://www.r-pkg.org/pkg/crancache)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/crancache)](http://www.r-pkg.org/pkg/crancache)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-hub/crancache/master.svg)](https://codecov.io/github/r-hub/crancache?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/crancache/master.svg)](https://codecov.io/github/r-lib/crancache?branch=master)
 
 Provides wrappers for `utils::install.packages()`,
 `utils::download.packages()` and `utils::update.packages()` that
@@ -16,7 +16,7 @@ transparently cache downloaded packages in a local CRAN-like repository.
 ## Installation
 
 ```r
-source("https://install-github.me/r-hub/crancache")
+source("https://install-github.me/r-lib/crancache")
 ```
 
 ## Usage
