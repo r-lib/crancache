@@ -34,10 +34,16 @@ update_packages <- function(
   timestamp <- Sys.time()
   args <- match.call(expand.dots = FALSE)$...
 
-  update_cache <- should_update_crancache()
-  add_built_binaries <- should_add_binaries()
+  if (should_update_crancache()) {
+    add_built_binaries <- should_add_binaries()
 
-  tryCatch(
+    on.exit(update_cache(
+      list(...)$destdir, add_built_binaries, warnings, lib.loc, timestamp,
+      args
+    ))
+  }
+
+  withCallingHandlers(
     utils::update.packages(
       lib.loc = lib.loc,
       repos = myrepos,
@@ -50,11 +56,6 @@ update_packages <- function(
       ...,
       checkBuilt = checkBuilt,
       type = type),
-    warning = function(w) { warnings <- append(warnings, w); warning(w) },
-    error = function(e) { errors <- append(errors, e); stop(e) },
-    error = function(e) stop(e),
-    finally = if (update_cache) update_cache(
-      list(...)$destdir, binaries = add_built_binaries, warnings, errors,
-      lib.loc, timestamp, args)
+    warning = function(w) { warnings <- append(warnings, w); warning(w) }
   )
 }

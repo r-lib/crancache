@@ -25,19 +25,15 @@ download_packages <- function(
 
   myrepos <- c(get_crancache_repos(), repos)
 
-  update_cache <- should_update_crancache()
+  if (should_update_crancache()) on.exit(update_cache(destdir))
 
-  tryCatch(
-    utils::download.packages(
-      pkgs = pkgs,
-      destdir = destdir,
-      available = NULL,                 # overwritten
-      repos = myrepos,
-      ## We don't specify contriburl, on purpose
-      method = method,
-      type = type,
-      ...),
-    error = function(e) stop(e),
-    finally = if(update_cache) update_cache(destdir)
-  )
+  utils::download.packages(
+    pkgs = pkgs,
+    destdir = destdir,
+    available = NULL,                 # overwritten
+    repos = myrepos,
+    ## We don't specify contriburl, on purpose
+    method = method,
+    type = type,
+    ...)
 }

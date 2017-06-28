@@ -1,8 +1,8 @@
 
 #' @importFrom parsedate parse_date
 
-update_cache_binaries <- function(destdir, warnings, errors, lib,
-                                  timestamp, args) {
+update_cache_binaries <- function(destdir, warnings, lib, timestamp,
+                                  args) {
 
   if ("INSTALL_opts" %in% names(args) &&
       grepl("--no-test-load", args$INSTALL_opts, fixed = TRUE)) return()

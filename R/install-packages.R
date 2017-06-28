@@ -51,14 +51,18 @@ install_packages <- function(
   }
 
   warnings <- list()
-  errors <- list()
   timestamp <- Sys.time()
   args <- match.call(expand.dots = FALSE)$...
 
-  update_cache <- should_update_crancache()
-  add_built_binaries <- should_add_binaries()
+  if (should_update_crancache()) {
+    add_built_binaries <- should_add_binaries()
 
-  tryCatch(
+    on.exit(update_cache(
+      destdir, add_built_binaries, warnings, lib, timestamp, args
+    ))
+  }
+
+  withCallingHandlers(
     utils::install.packages(
       pkgs = pkgs,
       lib = lib,
@@ -70,11 +74,6 @@ install_packages <- function(
       dependencies = dependencies,
       type = type,
       ...),
-    warning = function(w) { warnings <- append(warnings, w); warning(w) },
-    error = function(e) { errors <- append(errors, e); stop(e) },
-    finally = if (update_cache) update_cache(
-      destdir, binaries = add_built_binaries, warnings, errors, lib,
-      timestamp, args
-    )
+    warning = function(w) { warnings <- append(warnings, w); warning(w) }
   )
 }
