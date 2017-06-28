@@ -5,7 +5,6 @@
 #'   [utils::install.packages()].
 #' @param binaries Whether to try to add binary packages to the cache.
 #' @param warnings List of warnings we got from [utils::install.packages()].
-#' @param errors List of errors we got from [utils::install.packages()].
 #' @param lib The `lib` argument to `install_packages`. Where the
 #'   packages are installed. If missing or `NULL`, then first element
 #'   of [base::.libPaths()] is used.
@@ -18,12 +17,11 @@
 #' @keywords internal
 
 update_cache <- function(destdir, binaries = FALSE, warnings = list(),
-                         errors = list(), lib, timestamp, args) {
-    update_cache_safe(destdir, binaries, warnings, errors, lib,
-                      timestamp, args)
+                         lib, timestamp, args) {
+    update_cache_safe(destdir, binaries, warnings, lib, timestamp, args)
 }
 
-update_cache_safe <- function(destdir, binaries, warnings, errors, lib,
+update_cache_safe <- function(destdir, binaries, warnings, lib,
                               timestamp, args) {
 
   ## Find the downloaded packages
@@ -37,7 +35,7 @@ update_cache_safe <- function(destdir, binaries, warnings, errors, lib,
   lapply(ffiles, function(f) try_silently(update_cache_file(f)))
 
   if (binaries) {
-    update_cache_binaries(destdir, warnings, errors, lib, timestamp, args)
+    update_cache_binaries(destdir, warnings, lib, timestamp, args)
   }
 }
 

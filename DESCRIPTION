@@ -8,16 +8,14 @@ Description: Wrappers for 'install.packages()', 'download_packages()' and
     local CRAN-like repositories.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/r-hub/crancache
-BugReports: https://github.com/r-hub/crancache/issues
+URL: https://github.com/r-lib/crancache#readme
+BugReports: https://github.com/r-lib/crancache/issues
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports:
     callr,
-    conf,
     cranlike,
     desc (>= 1.1.0),
-    httr,
     parsedate,
     rappdirs,
     tools,
@@ -27,6 +25,4 @@ Suggests:
     covr,
     testthat,
     zip
-Remotes: 
-    gaborcsardi/conf
 Encoding: UTF-8

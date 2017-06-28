@@ -4,8 +4,8 @@
 \alias{update_cache}
 \title{Update the cache after a download/install/update}
 \usage{
-update_cache(destdir, binaries = FALSE, warnings = list(),
-  errors = list(), lib, timestamp, args)
+update_cache(destdir, binaries = FALSE, warnings = list(), lib, timestamp,
+  args)
 }
 \arguments{
 \item{destdir}{Directory of the downloaded packages. See
@@ -14,8 +14,6 @@ update_cache(destdir, binaries = FALSE, warnings = list(),
 \item{binaries}{Whether to try to add binary packages to the cache.}
 
 \item{warnings}{List of warnings we got from \code{\link[utils:install.packages]{utils::install.packages()}}.}
-
-\item{errors}{List of errors we got from \code{\link[utils:install.packages]{utils::install.packages()}}.}
 
 \item{lib}{The \code{lib} argument to \code{install_packages}. Where the
 packages are installed. If missing or \code{NULL}, then first element

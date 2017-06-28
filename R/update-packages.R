@@ -34,32 +34,28 @@ update_packages <- function(
   timestamp <- Sys.time()
   args <- match.call(expand.dots = FALSE)$...
 
-  update_cache <- should_update_crancache()
-  add_built_binaries <- should_add_binaries()
+  if (should_update_crancache()) {
+    add_built_binaries <- should_add_binaries()
 
-  available <- update_metadata_for_install(method, type, repos)
+    on.exit(update_cache(
+      list(...)$destdir, add_built_binaries, warnings, lib.loc, timestamp,
+      args
+    ))
+  }
 
-  withr::with_options(
-    list(repos = if (is.null(repos)) getOption("repos") else myrepos),
-    tryCatch(
-      utils::update.packages(
-        lib.loc = lib.loc,
-        repos = myrepos,
-        ## We don't specify contriburl, on purpose
-        method = method,
-        instlib = instlib,
-        ask = ask,
-        available = available,
-        oldPkgs = oldPkgs,
-        ...,
-        checkBuilt = checkBuilt,
-        type = type),
-      warning = function(w) { warnings <- append(warnings, w); warning(w) },
-      error = function(e) { errors <- append(errors, e); stop(e) },
-      error = function(e) stop(e),
-      finally = if (update_cache) update_cache(
-        list(...)$destdir, binaries = add_built_binaries, warnings, errors,
-        lib.loc, timestamp, args)
-    )
+  withCallingHandlers(
+    utils::update.packages(
+      lib.loc = lib.loc,
+      repos = myrepos,
+      ## We don't specify contriburl, on purpose
+      method = method,
+      instlib = instlib,
+      ask = ask,
+      available = NULL,                   # overwritten
+      oldPkgs = oldPkgs,
+      ...,
+      checkBuilt = checkBuilt,
+      type = type),
+    warning = function(w) { warnings <- append(warnings, w); warning(w) }
   )
 }
