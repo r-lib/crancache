@@ -65,3 +65,7 @@ r_version <- function() {
 is_download_error <- function(x) {
   inherits(x, "download_error")
 }
+
+#' @importFrom utils getFromNamespace
+
+`%:::%` <- function(pkg, fun) getFromNamespace(fun, asNamespace(pkg))

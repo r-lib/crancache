@@ -45,7 +45,7 @@ available_packages <- function(contriburl = contrib.url(repos, type),
 }
 
 apply_filters <- function(pkgs, filters) {
-  if (!length(pkgs)) return(res)
+  if (!length(pkgs)) return(pkgs)
 
   for (f in filters) {
     if (!length(pkgs)) break
@@ -97,9 +97,4 @@ update_metadata_for_install <- function(method, type, repos) {
   } else {
     c(get_crancache_repos(), repos)
   }
-
-  call <- match.call()
-  call[[1]] <- quote(utils::available.packages)
-  call$repos <- myrepos
-  eval(call, envir = parent.frame())
 }
