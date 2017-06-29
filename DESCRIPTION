@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 Imports:
     callr,
     cranlike,
+    curl,
     desc (>= 1.1.0),
     parsedate,
     rappdirs,
@@ -23,6 +24,7 @@ Imports:
     withr
 Suggests:
     covr,
+    pingr,
     testthat,
     zip
 Encoding: UTF-8
