@@ -60,7 +60,6 @@ download_files <- function(downloads) {
         expected_etag <- etag
         handle_setopt(h, customrequest = "HEAD", nobody = TRUE)
       } else {
-        cat("getting ", url)
         last_verb <<- "GET"
         expected_etag <<- NULL
       }

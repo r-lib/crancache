@@ -17,6 +17,8 @@ Imports:
     cranlike,
     curl,
     desc (>= 1.1.0),
+    digest,
+    httr,
     parsedate,
     rappdirs,
     tools,

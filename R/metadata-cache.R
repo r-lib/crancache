@@ -22,8 +22,10 @@ get_packages_url <- function(contriburl) {
 
   ## Cache for 5 minutes
   gzfile <- get_metadata_file(contriburl, type = ".gz")
-  age <- Sys.time() - file.mtime(gzfile)
-  if (age < as.difftime(5, units = "mins")) return(character())
+  if (file.exists(gzfile)) {
+    age <- Sys.time() - file.mtime(gzfile)
+    if (age < as.difftime(5, units = "mins")) return(character())
+  }
 
   ## Otherwise try to download (or at least ping)
   paste0(contriburl, "/", "PACKAGES.gz")
@@ -37,9 +39,7 @@ build_metadata_rds <- function(contriburl) {
   if (!file.exists(gz)) return()
 
   ## Output is newer, nothing to do
-  if (file.exists(rds) && file.info(gz)$mtime < file.info(rds)$mtime) {
-    return()
-  }
+  if (file.exists(rds) && file.mtime(gz) < file.mtime(rds)) return()
 
   gzf <- gzfile(gz, open = "r")
   av <- read.dcf(gzf)
