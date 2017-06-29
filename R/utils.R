@@ -49,3 +49,19 @@ pkg_name_from_file <- function(x) {
 isFALSE <- function(x) {
   identical(x, FALSE)
 }
+
+ungzip <- function(path) {
+  if (! grepl("\\.gz$", path)) stop("Not the a gzipped file")
+  target <- sub("\\.gz$", "", path)
+  gzf <- gzfile(path, open = "r")
+  on.exit(close(gzf))
+  writeLines(readLines(gzf), target)
+}
+
+r_version <- function() {
+  paste0(R.Version()[c("major", "minor")], collapse = ".")
+}
+
+is_download_error <- function(x) {
+  inherits(x, "download_error")
+}
