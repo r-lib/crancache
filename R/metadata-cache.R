@@ -43,7 +43,7 @@ build_metadata_rds <- function(contriburl) {
 
   gzf <- gzfile(gz, open = "r")
   av <- read.dcf(gzf)
-  rownames(av) <- av[, "Package"]
+  if (length(av)) rownames(av) <- av[, "Package"]
   close(gzf)
   saveRDS(av, file = rds)
 }
