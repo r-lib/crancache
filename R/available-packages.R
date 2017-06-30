@@ -33,13 +33,12 @@ available_packages <- function(contriburl = contrib.url(repos, type),
 
   filters <- get_filters(filters)
 
-  hash <- list(sha1(res), sha1(filters))
-  if (identical(hash, data_env$available_hash)) {
-    data_env$available
+  hash <- sha1(list(res, filters))
+  if (hash %in% ls(data_env)) {
+    get(hash, data_env)
   } else {
     res <- apply_filters(res, filters)
-    data_env$available <- res
-    data_env$available_hash <- hash
+    assign(hash, res, envir = data_env)
     res
   }
 }
