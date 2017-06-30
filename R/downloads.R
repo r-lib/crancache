@@ -57,7 +57,7 @@ download_files <- function(downloads) {
       url <- downloads[[which]][[last_try]]
       if (last_verb == "GET" && !is.na(etag <- etags[[which]][[last_try]])) {
         last_verb <<- "HEAD"
-        expected_etag <- etag
+        expected_etag <<- etag
         handle_setopt(h, customrequest = "HEAD", nobody = TRUE)
       } else {
         last_verb <<- "GET"
