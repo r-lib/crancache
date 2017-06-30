@@ -23,6 +23,8 @@ download_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
+  update_repo_metadata(contriburl)
+
   myrepos <- c(get_crancache_repos(), repos)
 
   if (should_update_crancache()) on.exit(update_cache(destdir))
