@@ -22,7 +22,10 @@ get_crancache_repos <- function(type) {
   if (isTRUE(use_cache)) {
     use_cache <- rep(TRUE, length(crancache_repos))
   } else {
-    use_cache <- intersect(names(crancache_repos), use_cache)
+    use_cache <- intersect(
+      names(crancache_repos),
+      c(use_cache, paste0(use_cache, "-bin"))
+    )
   }
 
   crancache_repos[use_cache]
