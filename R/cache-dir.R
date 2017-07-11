@@ -76,12 +76,8 @@ get_cache_urls <- function(type = "both") {
 #' @importFrom utils contrib.url
 
 get_package_dirs <- function(root, type) {
-  if (identical(type, "localplatform")) {
-    paste0(root, "/bin/localplatform")
-  } else {
-    paste0(
-      root,
-      vapply(type, contrib.url, "", repos = "")
-    )
-  }
+  paste0(
+    root,
+    vapply(type, contrib.url, "", repos = "")
+  )
 }
