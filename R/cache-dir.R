@@ -33,38 +33,55 @@ get_cache_dir <- function() {
 
 get_cache_package_dirs <- function() {
   cache_dir <- get_cache_dir()
+
   cran <- file.path(cache_dir, "cran")
   bioc <- file.path(cache_dir, "bioc")
   other <- file.path(cache_dir, "other")
+
+  cran_bin <- file.path(cache_dir, "cran-bin")
+  bioc_bin <- file.path(cache_dir, "bioc-bin")
+  other_bin <- file.path(cache_dir, "other-bin")
+
   c(
-    "cran/platform"  = get_package_dirs(cran, .Platform$pkgType),
-    "cran/source"    = get_package_dirs(cran, "source"),
-    "bioc/platform"  = get_package_dirs(bioc, .Platform$pkgType),
-    "bioc/source"    = get_package_dirs(bioc, "source"),
-    "other/platform" = get_package_dirs(other, .Platform$pkgType),
-    "other/source"   = get_package_dirs(other, "source")
+    "cran-bin/source"     = get_package_dirs(cran_bin, "source"),
+    "cran/platform"       = get_package_dirs(cran, .Platform$pkgType),
+    "cran/source"         = get_package_dirs(cran, "source"),
+    "bioc-bin/source"     = get_package_dirs(bioc_bin, "source"),
+    "bioc/platform"       = get_package_dirs(bioc, .Platform$pkgType),
+    "bioc/source"         = get_package_dirs(bioc, "source"),
+    "other-bin/source"    = get_package_dirs(other_bin, "source"),
+    "other/platform"      = get_package_dirs(other, .Platform$pkgType),
+    "other/source"        = get_package_dirs(other, "source")
   )
 }
 
 #' @importFrom utils URLencode
 
-get_cache_urls <- function() {
-  paths <- paste0(
-    "file://",
-    get_cache_dir(),
-    c("/cran", "/bioc", "/other")
-  )
+get_cache_urls <- function(type = "both") {
+
+  repo_names <- if (type == "both" || type == "binary" ||
+                    grepl("^mac.binary", type) || grepl("win.binary", type)) {
+    c("cran-bin", "cran", "bioc-bin", "bioc", "other-bin", "other")
+  } else {
+    c("cran", "bioc", "other")
+  }
+
+  paths <- paste0("file://", get_cache_dir(), "/", repo_names)
   structure(
     vapply(paths, URLencode, character(1), USE.NAMES = FALSE),
-    names = c("cran", "bioc", "other")
+    names = repo_names
   )
 }
 
 #' @importFrom utils contrib.url
 
 get_package_dirs <- function(root, type) {
-  paste0(
-    root,
-    vapply(type, contrib.url, "", repos = "")
-  )
+  if (identical(type, "localplatform")) {
+    paste0(root, "/bin/localplatform")
+  } else {
+    paste0(
+      root,
+      vapply(type, contrib.url, "", repos = "")
+    )
+  }
 }
