@@ -3,7 +3,7 @@ is_crancache_active <- function() {
   Sys.getenv("CRANCACHE_DISABLE", "") == ""
 }
 
-get_crancache_repos <- function() {
+get_crancache_repos <- function(type) {
 
   if (!is_crancache_active()) return(character())
 
@@ -17,7 +17,7 @@ get_crancache_repos <- function() {
     unique(trimws(strsplit(repos, ",", fixed = TRUE)[[1]]))
   }
 
-  crancache_repos <- get_cached_repos()
+  crancache_repos <- get_cached_repos(type)
 
   if (isTRUE(use_cache)) {
     use_cache <- rep(TRUE, length(crancache_repos))

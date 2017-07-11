@@ -29,7 +29,8 @@ update_packages <- function(
 
   update_repo_metadata(contriburl)
 
-  myrepos <- c(get_crancache_repos(), repos)
+  mytype <- if (missing(type)) "binary" else type
+  myrepos <- c(get_crancache_repos(mytype), repos)
 
   warnings <- list()
   errors <- list()

@@ -49,7 +49,8 @@ install_packages <- function(
   myrepos <- if (is.null(repos)) {
     NULL
   } else {
-    c(get_crancache_repos(), repos)
+    mytype <- if (missing(type)) "binary" else type
+    c(get_crancache_repos(type = mytype), repos)
   }
 
   warnings <- list()

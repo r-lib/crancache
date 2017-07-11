@@ -23,10 +23,12 @@ available_packages <- function(contriburl = contrib.url(repos, type),
 
   update_repo_metadata(contriburl)
 
+  mytype <- if (missing(type) || type == "both") "source" else type
+
   call <- match.call()
   call[[1]] <- quote(utils::available.packages)
   call$repos <-
-    if (is.null(repos)) NULL else c(get_crancache_repos(), repos)
+    if (is.null(repos)) NULL else c(get_crancache_repos(mytype), repos)
   call$filters <- list()
 
   res <- eval(call, envir = parent.frame())

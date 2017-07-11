@@ -25,7 +25,10 @@ download_packages <- function(
 
   update_repo_metadata(contriburl)
 
-  myrepos <- c(get_crancache_repos(), repos)
+  ## download.packages defaults to source packages if
+  ## type is not specified explicitly
+  mytype <- if (missing(type)) "source" else type
+  myrepos <- c(get_crancache_repos(type = mytype), repos)
 
   if (should_update_crancache()) on.exit(update_cache(destdir))
 

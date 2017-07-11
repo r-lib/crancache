@@ -9,9 +9,9 @@ interpret_type <- function(type) {
   }
 }
 
-get_cached_repos <- function() {
+get_cached_repos <- function(type) {
   create_cache_if_needed()
-  get_cache_urls()
+  get_cache_urls(type)
 }
 
 #' @importFrom cranlike create_empty_PACKAGES
