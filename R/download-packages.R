@@ -23,7 +23,7 @@ download_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  update_repo_metadata(contriburl)
+  if (!missing(contriburl)) update_repo_metadata(contriburl)
 
   ## download.packages defaults to source packages if
   ## type is not specified explicitly
