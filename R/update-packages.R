@@ -33,7 +33,6 @@ update_packages <- function(
   myrepos <- c(get_crancache_repos(mytype), repos)
 
   warnings <- list()
-  errors <- list()
   timestamp <- Sys.time()
   args <- match.call(expand.dots = FALSE)$...
 
@@ -59,6 +58,6 @@ update_packages <- function(
       ...,
       checkBuilt = checkBuilt,
       type = type),
-    warning = function(w) { warnings <- append(warnings, w); warning(w) }
+    warning = function(w) { warnings <<- append(warnings, w); warning(w) }
   )
 }
