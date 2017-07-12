@@ -77,6 +77,6 @@ install_packages <- function(
       dependencies = dependencies,
       type = type,
       ...),
-    warning = function(w) { warnings <- append(warnings, w); warning(w) }
+    warning = function(w) { warnings <<- append(warnings, w); warning(w) }
   )
 }
