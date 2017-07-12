@@ -27,7 +27,7 @@ update_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  update_repo_metadata(contriburl)
+  if (!missing(contriburl)) update_repo_metadata(contriburl)
 
   mytype <- if (missing(type)) "binary" else type
   myrepos <- c(get_crancache_repos(mytype), repos)

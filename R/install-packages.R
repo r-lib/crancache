@@ -37,7 +37,7 @@ install_packages <- function(
   warn_for_ignored_arg("contriburl")
   warn_for_ignored_arg("available")
 
-  update_repo_metadata(contriburl)
+  if (!missing(contriburl)) update_repo_metadata(contriburl)
 
   ## Check if repos should be NULL, i.e. we are installing a single
   ## package file

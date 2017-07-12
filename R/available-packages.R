@@ -21,7 +21,7 @@ available_packages <- function(contriburl = contrib.url(repos, type),
                                      repos = repos))
   }
 
-  update_repo_metadata(contriburl)
+  if (!missing(contriburl)) update_repo_metadata(contriburl)
 
   mytype <- if (missing(type) || type == "both") "source" else type
 
