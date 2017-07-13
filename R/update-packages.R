@@ -58,6 +58,6 @@ update_packages <- function(
       ...,
       checkBuilt = checkBuilt,
       type = type),
-    warning = function(w) { warnings <<- append(warnings, w); warning(w) }
+    warning = function(w) { warnings <<- c(warnings, list(w)); warning(w) }
   )
 }
