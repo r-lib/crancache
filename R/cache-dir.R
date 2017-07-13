@@ -38,29 +38,42 @@ get_cache_package_dirs <- function() {
   bioc <- file.path(cache_dir, "bioc")
   other <- file.path(cache_dir, "other")
 
-  cran_bin <- file.path(cache_dir, "cran-bin")
-  bioc_bin <- file.path(cache_dir, "bioc-bin")
-  other_bin <- file.path(cache_dir, "other-bin")
+  if (.Platform$pkgType == "source") {
+    cran_bin <- file.path(cache_dir, "cran-bin")
+    bioc_bin <- file.path(cache_dir, "bioc-bin")
+    other_bin <- file.path(cache_dir, "other-bin")
 
-  c(
-    "cran-bin/source"     = get_package_dirs(cran_bin, "source"),
-    "cran/platform"       = get_package_dirs(cran, .Platform$pkgType),
-    "cran/source"         = get_package_dirs(cran, "source"),
-    "bioc-bin/source"     = get_package_dirs(bioc_bin, "source"),
-    "bioc/platform"       = get_package_dirs(bioc, .Platform$pkgType),
-    "bioc/source"         = get_package_dirs(bioc, "source"),
-    "other-bin/source"    = get_package_dirs(other_bin, "source"),
-    "other/platform"      = get_package_dirs(other, .Platform$pkgType),
-    "other/source"        = get_package_dirs(other, "source")
-  )
+    c(
+      "cran-bin/source"     = get_package_dirs(cran_bin, "source"),
+      "cran/platform"       = get_package_dirs(cran, .Platform$pkgType),
+      "cran/source"         = get_package_dirs(cran, "source"),
+      "bioc-bin/source"     = get_package_dirs(bioc_bin, "source"),
+      "bioc/platform"       = get_package_dirs(bioc, .Platform$pkgType),
+      "bioc/source"         = get_package_dirs(bioc, "source"),
+      "other-bin/source"    = get_package_dirs(other_bin, "source"),
+      "other/platform"      = get_package_dirs(other, .Platform$pkgType),
+      "other/source"        = get_package_dirs(other, "source")
+    )
+
+  } else {
+    c(
+      "cran/platform"       = get_package_dirs(cran, .Platform$pkgType),
+      "cran/source"         = get_package_dirs(cran, "source"),
+      "bioc/platform"       = get_package_dirs(bioc, .Platform$pkgType),
+      "bioc/source"         = get_package_dirs(bioc, "source"),
+      "other/platform"      = get_package_dirs(other, .Platform$pkgType),
+      "other/source"        = get_package_dirs(other, "source")
+    )
+  }
 }
 
 #' @importFrom utils URLencode
 
 get_cache_urls <- function(type = "both") {
 
-  repo_names <- if (type == "both" || type == "binary" ||
-                    grepl("^mac.binary", type) || grepl("win.binary", type)) {
+  repo_names <- if (.Platform$pkgType == "source" && (
+                      type == "both" || type == "binary" ||
+                      grepl("^mac.binary", type) || grepl("win.binary", type))) {
     c("cran-bin", "cran", "bioc-bin", "bioc", "other-bin", "other")
   } else {
     c("cran", "bioc", "other")
