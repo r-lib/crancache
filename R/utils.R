@@ -69,3 +69,9 @@ is_download_error <- function(x) {
 #' @importFrom utils getFromNamespace
 
 `%:::%` <- function(pkg, fun) getFromNamespace(fun, asNamespace(pkg))
+
+is_nonstd_binary <- function(file) {
+  !grepl("[-0-9.]+\\.tar\\.gz$", file) &&
+    !grepl("\\.tgz$", file) &&
+    !grepl("\\.zip$", file)
+}

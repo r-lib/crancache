@@ -76,14 +76,14 @@ get_cache_dir_for_file <- function(file) {
   repository <- desc_get("Repository", file)[[1]]
   biocViews <- desc_get("biocViews", file)[[1]]
 
-  linux_binary <- !grepl("[-0-9.]+\\.tar\\.gz$", file)
+  nonstd_binary <- is_nonstd_binary(file)
 
   prefix <- if (identical(repository, "CRAN")) {
-    if (linux_binary) "cran-bin/" else "cran/"
+    if (nonstd_binary) "cran-bin/" else "cran/"
   } else if (!is.na(biocViews)) {
-    if (linux_binary) "bioc-bin/" else "bioc/"
+    if (nonstd_binary) "bioc-bin/" else "bioc/"
   } else {
-    if (linux_binary) "other-bin/" else "other/"
+    if (nonstd_binary) "other-bin/" else "other/"
   }
 
   which <- if (grepl("\\.zip$", file)) {
@@ -97,7 +97,7 @@ get_cache_dir_for_file <- function(file) {
     }
 
   } else if (grepl("\\.tar\\.gz$", file)) {
-    ## This also includes Linux binaries
+    ## This also includes non-standard (Linux, Solaris, etc.) binaries
     "source"
   }
 
