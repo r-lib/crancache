@@ -14,7 +14,7 @@ RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports:
     callr,
-    cranlike (>= 1.0.1.9001),
+    cranlike (>= 1.0.2),
     curl,
     desc (>= 1.1.0),
     digest,
@@ -28,6 +28,4 @@ Suggests:
     pingr,
     testthat,
     zip
-Remotes: 
-    r-hub/cranlike
 Encoding: UTF-8
