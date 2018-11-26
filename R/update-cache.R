@@ -67,7 +67,7 @@ update_cache_file <- function(file) {
     message("Adding ", sQuote(basename(file)), " to the cache")
   }
   file.copy(tfile, dir)
-  add_PACKAGES(basename(file), dir = dir)
+  suppressWarnings(add_PACKAGES(basename(file), dir = dir))
 }
 
 get_cache_dir_for_file <- function(file) {
