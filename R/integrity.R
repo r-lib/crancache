@@ -15,7 +15,7 @@ check_integrity <- function(file) {
 check_integrity_zip <- function(file) {
   if (file.info(file)$size == 0) return(FALSE)
   tryCatch(
-    is_package_file_list(file, unzip(file, list = TRUE)),
+    is_package_file_list(file, unzip(file, list = TRUE)$Name),
     error = function(e) FALSE,
     warning = function(e) FALSE
   )
