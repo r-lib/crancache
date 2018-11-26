@@ -79,7 +79,10 @@ get_cache_urls <- function(type = "both") {
     c("cran", "bioc", "other")
   }
 
-  paths <- paste0("file://", get_cache_dir(), "/", repo_names)
+  cache_dir <- get_cache_dir()
+  paths <- paste0(
+    "file:///", normalizePath(get_cache_dir(),  winslash = "/"),
+    "/", repo_names)
   structure(
     vapply(paths, URLencode, character(1), USE.NAMES = FALSE),
     names = repo_names
