@@ -70,11 +70,9 @@ update_cache_file <- function(file) {
   add_PACKAGES(basename(file), dir = dir)
 }
 
-#' @importFrom desc desc_get
-
 get_cache_dir_for_file <- function(file) {
-  repository <- desc_get("Repository", file)[[1]]
-  biocViews <- desc_get("biocViews", file)[[1]]
+  repository <- mydesc_get("Repository", file)[[1]]
+  biocViews <- mydesc_get("biocViews", file)[[1]]
 
   nonstd_binary <- is_nonstd_binary(file)
 
@@ -102,4 +100,12 @@ get_cache_dir_for_file <- function(file) {
   }
 
   get_cache_package_dirs()[[paste0(prefix, which)]]
+}
+
+## Work around a desc bug that emits a warning here on Windows
+
+#' @importFrom desc desc_get
+
+mydesc_get <- function(key, file) {
+  suppressWarnings(desc_get(key, file))
 }
