@@ -6,8 +6,8 @@
 \usage{
 update_packages(lib.loc = NULL, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, instlib = NULL,
-  ask = TRUE, available = NULL, oldPkgs = NULL, ..., checkBuilt = FALSE,
-  type = getOption("pkgType"))
+  ask = TRUE, available = NULL, oldPkgs = NULL, ...,
+  checkBuilt = FALSE, type = getOption("pkgType"))
 }
 \arguments{
 \item{lib.loc}{character vector describing the location of R
@@ -56,7 +56,7 @@ vector of package names or a matrix as returned by \code{old.packages}.}
 \code{\link[utils:update.packages]{utils::update.packages()}}.}
 
 \item{checkBuilt}{If \code{TRUE}, a package built under an earlier
-    major.minor version of \R (e.g., \code{3.1}) is considered to be
+    major.minor version of \R (e.g., \code{3.4}) is considered to be
     \sQuote{old}.}
 
 \item{type}{character, indicating the type of package to download and
@@ -71,3 +71,4 @@ Other caching package management functions: \code{\link{available_packages}},
   \code{\link{download_packages}},
   \code{\link{install_packages}}
 }
+\concept{caching package management functions}

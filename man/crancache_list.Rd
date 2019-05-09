@@ -17,3 +17,4 @@ List packages in the cache
 Other cache management functions: \code{\link{crancache_clean}},
   \code{\link{crancache_remove}}
 }
+\concept{cache management functions}

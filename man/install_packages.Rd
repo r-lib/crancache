@@ -6,7 +6,8 @@
 \usage{
 install_packages(pkgs, lib, repos = getOption("repos"),
   contriburl = contrib.url(repos, type), method, available = NULL,
-  destdir = NULL, dependencies = NA, type = getOption("pkgType"), ...)
+  destdir = NULL, dependencies = NA, type = getOption("pkgType"),
+  ...)
 }
 \arguments{
 \item{pkgs}{character vector of the names of packages whose
@@ -109,3 +110,4 @@ Other caching package management functions: \code{\link{available_packages}},
   \code{\link{download_packages}},
   \code{\link{update_packages}}
 }
+\concept{caching package management functions}

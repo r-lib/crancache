@@ -50,3 +50,4 @@ Other caching package management functions: \code{\link{download_packages}},
   \code{\link{install_packages}},
   \code{\link{update_packages}}
 }
+\concept{caching package management functions}

@@ -5,8 +5,8 @@
 \title{Download Package from CRAN-like Repositories, with Caching}
 \usage{
 download_packages(pkgs, destdir, available = NULL,
-  repos = getOption("repos"), contriburl = contrib.url(repos, type), method,
-  type = getOption("pkgType"), ...)
+  repos = getOption("repos"), contriburl = contrib.url(repos, type),
+  method, type = getOption("pkgType"), ...)
 }
 \arguments{
 \item{pkgs}{
@@ -44,7 +44,7 @@ download_packages(pkgs, destdir, available = NULL,
 
 \item{type}{
     character string, indicate which type of packages: see
-    \code{\link{install.packages}}.
+    \code{\link{install.packages}} and \sQuote{Details}.
   }
 
 \item{...}{additional arguments are passed to
@@ -58,3 +58,4 @@ Other caching package management functions: \code{\link{available_packages}},
   \code{\link{install_packages}},
   \code{\link{update_packages}}
 }
+\concept{caching package management functions}

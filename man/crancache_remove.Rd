@@ -19,3 +19,4 @@ package, it just continues with the rest of the packages.
 Other cache management functions: \code{\link{crancache_clean}},
   \code{\link{crancache_list}}
 }
+\concept{cache management functions}

@@ -4,8 +4,8 @@
 \alias{update_cache}
 \title{Update the cache after a download/install/update}
 \usage{
-update_cache(destdir, binaries = FALSE, warnings = list(), lib, timestamp,
-  args)
+update_cache(destdir, binaries = FALSE, warnings = list(), lib,
+  timestamp, args)
 }
 \arguments{
 \item{destdir}{Directory of the downloaded packages. See

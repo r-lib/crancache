@@ -17,3 +17,4 @@ It deletes the cache directory as well.
 Other cache management functions: \code{\link{crancache_list}},
   \code{\link{crancache_remove}}
 }
+\concept{cache management functions}
