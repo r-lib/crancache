@@ -1,5 +1,6 @@
 
 #' @importFrom parsedate parse_date
+#' @importFrom rematch2 re_match
 
 update_cache_binaries <- function(destdir, warnings, lib, timestamp,
                                   args) {
