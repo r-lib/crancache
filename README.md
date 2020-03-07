@@ -15,8 +15,10 @@ transparently cache downloaded packages in a local CRAN-like repository.
 
 ## Installation
 
+Once on CRAN, install this package as usual:
+
 ```r
-source("https://install-github.me/r-lib/crancache")
+install.packages("crancache")
 ```
 
 ## Usage
