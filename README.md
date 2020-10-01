@@ -59,8 +59,8 @@ Environment variables:
   to disable adding just-built binary packages to the cache.
   (Downloaded binaries are still added.)
 
-If none of these environment variables are set (i.e. by default)
-the cache is used and updated and all cache repositories are active.
+If none of these environment variables are set (i.e. by default),
+the cache is used and updated plus all cache repositories are active.
 
 ## Example session
 
